@@ -8,7 +8,7 @@ const video = require('../Model/video.js');
 //all videos
 router.get('/',(req,res)=>{
 	console.log("INSIDE !")
-	video.getVideos((err,test)=>{            
+	video.getVideos((err,video)=>{            
 		if (err){
 			console.log("Error at getVideo")
 			res.send("Error at getVideo")
@@ -20,7 +20,7 @@ router.get('/',(req,res)=>{
 
 //specific video
 router.get('/:id',(req,res)=>{
-	let id = req.parms.id;                 
+	let id = req.params.id;                 
 	console.log('Requested id = '+id); 
 	video.getVideoById(id,(err,video)=>{
 		if(err){
@@ -35,26 +35,27 @@ router.get('/:id',(req,res)=>{
 router.post('/add',(req,res)=>{
 	let obj = req.body.video;            
 	console.log(req.body.video);
-	video.addVideo((err,video)=>{
+	video.addVideo(obj,(err,video)=>{
 		if(err){
 			console.log("Error at addVideo");
 			res.send("Error at addVideo");
 		}
 		res.json(video);
-	},obj)
+	})
 })
 
 
 //Updation
 router.put('/:id',(req,res)=>{
 	let id = req.params.id;              
-	let edit = req.params.video;          
+	let edit = req.body.video;          
 	video.editVideo(id,edit,{},(err,video)=>{        
 		if(err){
 			console.log("Error at editVideo")
 			
 		}
-		console.log('no error : '+video)
+		console.log('no error : ')
+		res.json(video);
 	})
 })
 
@@ -66,6 +67,7 @@ router.delete('/:id',(req,res)=>{
 			console.log('Error at deletion');
 		}
 		console.log('No Error: '+video)
+		res.json(video);;
 	})
 })
 

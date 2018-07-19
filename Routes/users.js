@@ -33,28 +33,29 @@ router.get('/:id',(req,res)=>{
 
 //add User
 router.post('/add',(req,res)=>{
-	let obj = req.body.User;            
-	console.log(req.body.User);
-	user.addUser((err,test)=>{
+	let obj = req.body.user;            
+	console.log(req.body.ser);
+	user.addUser(obj,(err,user)=>{
 		if(err){
-			console.log("Error at addTest");
-			res.send("Error at addTest");
+			console.log("Error at addUser");
+			res.send("Error at addUser");
 		}
-		res.json(test);
-	},obj)
+		res.json(user);
+	})
 })
 
 
 //Updation
 router.put('/:id',(req,res)=>{
 	let id = req.params.id;              
-	let edit = req.params.User;          
-	user.editUser(id,edit,{},(err,test)=>{        
+	let edit = req.body.user;          
+	user.editUser(id,edit,{},(err,user)=>{        
 		if(err){
-			console.log("Error at editTest")
+			console.log("Error at editUser")
 			
 		}
-		console.log('no error : '+test)
+		console.log('no error : '+user)
+		res.json(user);
 	})
 	
 })
@@ -62,13 +63,13 @@ router.put('/:id',(req,res)=>{
 //deletion
 router.delete('/:id',(req,res)=>{
 	let id = req.params.id;                
-	user.removeUser(id,(err,test)=>{      
+	user.removeUser(id,(err,user)=>{      
 		if(err){
 			console.log('Error at deletion');
 		}
-		console.log('No Error: '+test)
+		console.log('No Error: ')
+		res.json(user);
 	})
-	res.send("Deleted");
 })
 
 

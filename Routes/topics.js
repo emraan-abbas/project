@@ -20,7 +20,7 @@ router.get('/',(req,res)=>{
 
 //specific User
 router.get('/:id',(req,res)=>{
-	let id = req.parms.id;                 
+	let id = req.params.id;                 
 	console.log('Requested id = '+id); 
 	topic.getTopicsById(id,(err,topic)=>{
 		if(err){
@@ -49,24 +49,26 @@ router.post('/add',(req,res)=>{
 //Updation
 router.put('/:id',(req,res)=>{
 	let id = req.params.id;              
-	let edit = req.params.topic;          
-	test.editUser(id,edit,{},(err,topic)=>{        
+	let edit = req.body.topic;          
+	topic.editTopic(id,edit,{},(err,topic)=>{        
 		if(err){
 			console.log("Error at edittopic")
 			
 		}
-		console.log('no error : '+topic)
+		console.log('no error : '+topic);
+		res.json(topic);
 	})
 })
 
 //deletion
 router.delete('/:id',(req,res)=>{
 	let id = req.params.id;                
-	test.removeUser(id,(err,topic)=>{      
+	topic.removeTopic(id,(err,topic)=>{      
 		if(err){
 			console.log('Error at deletion');
 		}
-		console.log('No Error: '+topic)
+		console.log('No Error: ');
+		res.json(topic);
 	})
 })
 

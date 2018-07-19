@@ -19,7 +19,12 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 //Connection String
 // mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://root:toor123@ds263640.mlab.com:63640/project").then(console.log("DB Connected"));
+mongoose.connect("mongodb://root:toor123@ds263640.mlab.com:63640/project").then(
+	() => {
+	console.log("DB Connected")
+	}, (err) => {
+		console.log("error in DB connection");		
+});
 
 //set_page
 app.use(express.static(__dirname + '/public'));

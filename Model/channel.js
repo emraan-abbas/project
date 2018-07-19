@@ -8,20 +8,16 @@ const channelSchema = mongoose.Schema({
 		required : true
 	},
 
-	channel_Id:{
-		type : mongoose.Schema.Types.ObjectId,
-		ref : 'channel'
-	},
-
 	videos_list:[{
-		
-			link:{
+		link:
+		{
 			type : String,
 			required : true
 		},
+
 		date : {
 			type:Date,
-			default : Date.now
+			default : Date.now()
 		}
 	}]
 });
@@ -35,12 +31,12 @@ module.exports.getChannels = (callback,limit)=>{
 }
 
 // get specific channel
-module.exports.getChannel = (id,callback)=>{
+module.exports.getChanneById = (id,callback)=>{
 	channel.findbyId(id,callback);
 }
 
 // add channel
-module.exports.addChannel = (callback,data)=>{
+module.exports.addChannel = (data,callback)=>{
 	let add={                                  
 		channel_name : data.channel_name,
 		channel_Id : data.channel_Id,
@@ -50,11 +46,10 @@ module.exports.addChannel = (callback,data)=>{
 }
 
 // edit channel
-module.exports.editChannel = (callback,id,option,data)=>{     
+module.exports.editChannel = (id,data,option,callback)=>{     
 	let query={_id:id}                                     
 	let update = {                                         
 		channel_name : data.channel_name,
-		channelId : data.channelId,
 		videos_list : data.videos_list
 	}
 	channel.findOneAndUpdate(query, update, option, callback);     
@@ -63,6 +58,6 @@ module.exports.editChannel = (callback,id,option,data)=>{
 // dalete channel
 module.exports.removeChannel = (id,callback)=>{
 	let query={_id:id}
-	channel.remove(query, callback);                   
+	channel.findOneAndRemove(query, callback);                   
 }
 

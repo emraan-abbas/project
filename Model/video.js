@@ -33,7 +33,7 @@ module.exports.getVideo = (id,callback)=>{
 }
 
 // add Video
-module.exports.addVideo = (callback,data)=>{
+module.exports.addVideo = (data,callback)=>{
 	let add={                                  
 		path : data.path,
 		tags : data.tags,
@@ -43,7 +43,7 @@ module.exports.addVideo = (callback,data)=>{
 }
 
 // edit Video
-module.exports.editVideo = (callback,id,option,data)=>{     
+module.exports.editVideo = (id,data,option,callback)=>{     
 	let query={_id:id}                                     
 	let update = {                                         
 		path : data.path,

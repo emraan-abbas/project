@@ -10,7 +10,7 @@ const topicSchema = mongoose.Schema({
 
 	date:{
 		type : Date,
-		default : Date.now
+		default : Date.now()
 	}
 });
 
@@ -23,7 +23,7 @@ module.exports.getTopics = (callback,limit)=>{
 }
 
 // get specific topic
-module.exports.getTopic = (id,callback)=>{
+module.exports.getTopicById = (id,callback)=>{
 	topic.findbyId(id,callback);
 }
 
@@ -38,7 +38,7 @@ module.exports.addTopic = (data,callback)=>{
 }
 
 // edit topic
-module.exports.editTopic = (callback,id,option,data)=>{     
+module.exports.editTopic = (id,data,option,callback)=>{     
 	let query={_id:id}                                     
 	let update = {                                         
 		topic_name : data.topic_name,
@@ -50,6 +50,6 @@ module.exports.editTopic = (callback,id,option,data)=>{
 // dalete topic
 module.exports.removeTopic = (id,callback)=>{
 	let query={_id:id}
-	topic.remove(query, callback);                   
+	topic.findOneAndRemove(query, callback);                   
 }
 

@@ -59,7 +59,7 @@ module.exports.getUserById = (id,callback)=>{
 }
 
 // add User
-module.exports.addUser = (callback,data)=>{
+module.exports.addUser = (data,callback)=>{
 	let add={                                  
 		first_name : data.first_name,
 		last_name : data.last_name,
@@ -74,7 +74,7 @@ module.exports.addUser = (callback,data)=>{
 }
 
 // edit User
-module.exports.editUser = (callback,id,option,data)=>{     
+module.exports.editUser = (id,data,option,callback)=>{     
 	let query={_id:id}                                     
 	let update = {                                         
 		first_name : data.first_name,

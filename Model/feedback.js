@@ -4,8 +4,8 @@ const mongoose = require ("Mongoose");
 
 const feedbackSchema = mongoose.Schema({
 	feedback_name:{
-		type : mongoose.Schema.Types.ObjectId,
-		ref : 'feedback'
+		type : String,
+		required : true
 	},
 
 	comments:{
@@ -15,7 +15,7 @@ const feedbackSchema = mongoose.Schema({
 
 	date:{
 		type : Date,
-		default : Date.now
+		default : Date.now()
 	}
 });
 
@@ -28,12 +28,13 @@ module.exports.getFeedbacks = (callback,limit)=>{
 }
 
 // get specific feedback
-module.exports.getFeedback = (id,callback)=>{
-	feedback.findbyId(id,callback);
+module.exports.getFeedbackById = (id,callback)=>{
+	feedback.findById(id,callback);
 }
 
 // add feedback
 module.exports.addFeedback = (data,callback)=>{
+	console.log(data);
 	let add={                                  
 		feedback_name : data.feedback_name,
 		comments : data.comments,
@@ -43,7 +44,7 @@ module.exports.addFeedback = (data,callback)=>{
 }
 
 // edit feedback
-module.exports.editFeedback = (callback,id,option,data)=>{     
+module.exports.editFeedback = (id,data,option,callback)=>{     
 	let query={_id:id}                                     
 	let update = {                                         
 		feedback_name : data.feedback_name,
@@ -56,6 +57,6 @@ module.exports.editFeedback = (callback,id,option,data)=>{
 // dalete feedback
 module.exports.removeFeedback = (id,callback)=>{
 	let query={_id:id}
-	feedback.remove(query, callback);                   
+	feedback.findOneAndRemove(query, callback);                   
 }
 
