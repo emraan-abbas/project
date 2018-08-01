@@ -1,6 +1,7 @@
 const express = require("Express");
 const mongoose = require("Mongoose");
 const bodyparser = require("body-parser");
+const cors  = require("cors");
 const app = express();
 
 
@@ -16,7 +17,7 @@ const port = process.env.PORT||3000;
 //Set Parser
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
-
+app.use(cors());
 //Connection String
 // mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://root:toor123@ds263640.mlab.com:63640/project").then(

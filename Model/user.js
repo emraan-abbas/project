@@ -1,6 +1,8 @@
 // MODEL (Schema)
 
 const mongoose = require ("Mongoose");
+const bcrypt = require("bcrypt");
+
 
 const userSchema = mongoose.Schema({
 	first_name:{
@@ -60,17 +62,37 @@ module.exports.getUserById = (id,callback)=>{
 
 // add User
 module.exports.addUser = (data,callback)=>{
-	let add={                                  
-		first_name : data.first_name,
-		last_name : data.last_name,
-		pass : data.pass,
-		gender : data.gender,
-		dob : data.dob,
-		number : data.number,
-		email : data.email,
-		country	: data.country                  
-	}
-	user.create(add,callback);                 
+	bcrypt.hash(data.pass, 10, function(err, hash){
+		if(err) {
+		   return res.status(500).json({
+			  error: err
+		   });
+		}
+		else {
+			let add={                                  
+				first_name : data.first_name,
+				last_name : data.last_name,
+				pass : hash,
+				gender : data.gender,
+				dob : data.dob,
+				number : data.number,
+				email : data.email,
+				country	: data.country                  
+			}
+			user.create(add,callback); 
+		}
+	});
+                
+
+}
+
+
+module.exports.signin = (data,callback) => {
+	console.log("data " +data)
+
+	user.findOne({email: data.email},callback)
+    
+    
 }
 
 // edit User

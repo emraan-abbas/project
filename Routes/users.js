@@ -3,6 +3,8 @@
 const express = require('Express');
 const router = express.Router();
 const user = require('../Model/user.js');
+const bcrypt = require('bcrypt');
+const jwt = require ('jsonwebtoken');
 
 
 //all Users
@@ -33,8 +35,8 @@ router.get('/:id',(req,res)=>{
 
 //add User
 router.post('/add',(req,res)=>{
-	let obj = req.body.user;            
-	console.log(req.body.ser);
+	let obj = req.body;            
+	console.log(obj);
 	user.addUser(obj,(err,user)=>{
 		if(err){
 			console.log("Error at addUser");
@@ -42,6 +44,50 @@ router.post('/add',(req,res)=>{
 		}
 		res.json(user);
 	})
+})
+
+router.post('/login',(req,res)=>{
+	
+	let obj = req.body;
+	console.log(obj);
+	user.signin(obj,(err,user)=>{
+	console.log("user " +user)
+			bcrypt.compare(obj.pass, user.pass, function(err, result){
+	console.log("result " +result)
+
+			   if(err) {
+				  return res.status(401).json({
+					 failed: 'Unauthorized Access'
+				  });
+			   }
+			   if(!result) {
+				return res.status(401).json({
+				   failed: 'Wrong Email or Password'
+				});
+			 }
+			   if(result) {
+				 const JWTToken = jwt.sign({
+					  email: user.email,
+					  _id: user._id,
+					  
+					  number: user.number
+					},
+					'secret',
+					 {
+					   expiresIn: '30m'//Time 30 Minutes for the session
+					 });
+					 return res.status(200).json({
+					   success: 'Welcome tendenze',
+					   token: JWTToken,
+					   _id: user._id,
+					   email: user.email,
+					   number: user.number
+					 });
+				}
+			   
+			});
+		 })
+		
 })
 
 
