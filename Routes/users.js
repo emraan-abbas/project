@@ -22,14 +22,14 @@ router.get('/',(req,res)=>{
 
 //specific User
 router.get('/:id',(req,res)=>{
-	let id = req.parms.id;                 
+	let id = req.params.id;                 
 	console.log('Requested id = '+id); 
 	user.getUserById(id,(err,test)=>{
 		if(err){
 			console.log('Error at getSpecificTest')
 			res.send('Error at getSpecificTest')
 		}
-		res.json(test)
+		res.send(test)
 	})
 })
 
@@ -94,14 +94,14 @@ router.post('/login',(req,res)=>{
 //Updation
 router.put('/:id',(req,res)=>{
 	let id = req.params.id;              
-	let edit = req.body.user;          
+	let edit = req.body;          
 	user.editUser(id,edit,{},(err,user)=>{        
 		if(err){
 			console.log("Error at editUser")
 			
 		}
 		console.log('no error : '+user)
-		res.json(user);
+		res.send(user);
 	})
 	
 })

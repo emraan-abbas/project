@@ -57,7 +57,7 @@ module.exports.getUsers = (callback,limit)=>{
 
 // get specific User
 module.exports.getUserById = (id,callback)=>{
-	user.findbyId(id,callback);
+	user.findById(id,callback);
 }
 
 // add User

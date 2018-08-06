@@ -12,7 +12,6 @@ const channelSchema = mongoose.Schema({
 		link:
 		{
 			type : String,
-			required : true
 		},
 
 		date : {

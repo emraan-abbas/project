@@ -33,14 +33,14 @@ router.get('/:id',(req,res)=>{
 
 //add test
 router.post('/add',(req,res)=>{
-	let obj = req.body.channel;            
-	console.log(req.body.channel);
+	let obj = req.body;            
+	console.log(obj);
 	channel.addChannel(obj,(err,channel)=>{
 		if(err){
 			console.log("Error at addChannel");
 			res.send("Error at addChannel");
 		}
-		res.json(channel);
+		res.send(channel);
 	})
 })
 

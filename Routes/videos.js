@@ -14,15 +14,28 @@ router.get('/',(req,res)=>{
 			res.send("Error at getVideo")
 		}
 		console.log(video)
-		res.json(video);
+		res.send(video);
 	})
 })
 
+router.get('/feed/:id',(req,res)=>{
+	let id = req.params.id;
+	video.getfeed(id, (err,videos)=>{
+		if(err){
+			console.log("Error at Displaying Feed")
+			res.send("Error at Displaying Feed !")
+		}
+		console.log(videos)
+		res.json(videos);
+	})
+})
+
+
 //specific video
-router.get('/:id',(req,res)=>{
+router.get('/user/:id',(req,res)=>{
 	let id = req.params.id;                 
 	console.log('Requested id = '+id); 
-	video.getVideoById(id,(err,video)=>{
+	video.getVideoByUserId(id,(err,video)=>{
 		if(err){
 			console.log('Error at getSpecificVideo')
 			res.send('Error at getSpecificVideo')
