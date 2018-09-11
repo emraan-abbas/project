@@ -33,8 +33,9 @@ router.get('/:id',(req,res)=>{
 
 //add Feedbacks
 router.post('/add',(req,res)=>{
-	let obj = req.body.feedback;            
-	console.log(req.body.feedback);
+	let obj = req.body;       
+	console.log("Routes")     
+	console.log(obj);
 	feedback.addFeedback(obj,(err,feedback)=>{
 		if(err){
 			console.log("Error at addFeedback");

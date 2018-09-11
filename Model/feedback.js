@@ -34,6 +34,7 @@ module.exports.getFeedbackById = (id,callback)=>{
 
 // add feedback
 module.exports.addFeedback = (data,callback)=>{
+	console.log("Model")
 	console.log(data);
 	let add={                                  
 		feedback_name : data.feedback_name,
