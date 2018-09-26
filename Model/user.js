@@ -97,19 +97,29 @@ module.exports.signin = (data,callback) => {
 
 // edit User
 module.exports.editUser = (id,data,option,callback)=>{     
-	let query={_id:id}                                     
-	let update = {                                         
-		first_name : data.first_name,
-		last_name : data.last_name,
-		pass : data.pass,
-		gender : data.gender,
-		dob : data.dob,
-		number : data.number,
-		email : data.email,
-		country	: data.country
+	bcrypt.hash(data.pass, 10, function(err, hash){
+		if(err) {
+		   return res.status(500).json({
+			  error: err
+		   });
+		}
+		else {
+			let update={                                  
+				first_name : data.first_name,
+				last_name : data.last_name,
+				pass : hash,
+				gender : data.gender,
+				dob : data.dob,
+				number : data.number,
+				email : data.email,
+				country	: data.country                  
+			}
+			
+		let query={_id:id} 
+		user.findOneAndUpdate(query, update, option, callback);     	                                    
+		}
 	}
-	user.findOneAndUpdate(query, update, option, callback);     
-}
+)}
 
 // dalete User
 module.exports.removeUser = (id,callback)=>{
