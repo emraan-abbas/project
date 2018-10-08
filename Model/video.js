@@ -7,9 +7,9 @@ const videoSchema = mongoose.Schema({
 		type : String,
 		required : true
 	},
-	userId:{
+	channelId:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'Channel'
 	},
 	tags:{
 		type : String,
@@ -19,6 +19,10 @@ const videoSchema = mongoose.Schema({
 	rating:{
 		type : Number,
 		require : true
+	},
+	date : {
+		type:Date,
+		default : Date.now()
 	}
 });
 

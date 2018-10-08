@@ -3,6 +3,7 @@
 const express = require('Express');
 const router = express.Router();
 const video = require('../Model/video.js');
+const multerConfig = require("../config/multerConfig");
 
 
 //all videos
@@ -44,15 +45,16 @@ router.get('/user/:id',(req,res)=>{
 	})
 })
 
-//add User
+// add User
 router.post('/add',(req,res)=>{
-	let obj = req.body.video;            
-	console.log(req.body.video);
-	video.addVideo(obj,(err,video)=>{
+	let obj = req.body.video;
+	multerConfig.saveProductImage(req,res,(err,video)=>{
 		if(err){
 			console.log("Error at addVideo");
+			console.log(err);
 			res.send("Error at addVideo");
 		}
+		console.log(video);
 		res.json(video);
 	})
 })

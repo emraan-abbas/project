@@ -7,17 +7,13 @@ const channelSchema = mongoose.Schema({
 		type : String,
 		required : true
 	},
-
+	userId:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	},
 	videos_list:[{
-		link:
-		{
-			type : String,
-		},
-
-		date : {
-			type:Date,
-			default : Date.now()
-		}
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Video'	
 	}]
 });
 
