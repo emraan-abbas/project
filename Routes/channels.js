@@ -31,7 +31,21 @@ router.get('/:id',(req,res)=>{
 	})
 })
 
-//add test
+
+//Get Channel by userID
+router.get('/user/:id',(req,res)=>{
+	let id = req.params.id;                 
+	console.log('Requested id = '+id); 
+	channel.getChanneByUserId(id,(err,channel)=>{
+		if(err){
+			console.log('Error at getSpecificChannel')
+			res.send('Error at getSpecificChannel')
+		}
+		res.json(channel)
+	})
+})
+
+//add channel
 router.post('/add',(req,res)=>{
 	let obj = req.body;            
 	console.log(obj);

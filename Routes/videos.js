@@ -45,10 +45,26 @@ router.get('/user/:id',(req,res)=>{
 	})
 })
 
-// add User
-router.post('/add',(req,res)=>{
+// Save Video in local storage
+router.post('/save',(req,res)=>{
 	let obj = req.body.video;
 	multerConfig.saveProductImage(req,res,(err,video)=>{
+		if(err){
+			console.log("Error at SaveVideo");
+			console.log(err);
+			res.send("Error at SaveVideo");
+		}
+		console.log(video);
+		res.json(video);
+	})
+})
+
+
+// Add Video in Mongo Db
+router.post('/add',(req,res)=>{
+	let obj = req.body;
+	
+	video.addVideo(obj,(err,video)=>{
 		if(err){
 			console.log("Error at addVideo");
 			console.log(err);
@@ -58,7 +74,6 @@ router.post('/add',(req,res)=>{
 		res.json(video);
 	})
 })
-
 
 //Updation
 router.put('/:id',(req,res)=>{

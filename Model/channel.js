@@ -9,7 +9,8 @@ const channelSchema = mongoose.Schema({
 	},
 	userId:{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		unique:true
 	},
 	videos_list:[{
 		type: mongoose.Schema.Types.ObjectId,
@@ -30,13 +31,20 @@ module.exports.getChanneById = (id,callback)=>{
 	channel.findbyId(id,callback);
 }
 
+// get channel by user Id
+module.exports.getChanneByUserId = (id,callback)=>{
+	let query={userId:id}  
+	channel.find(query,callback);
+}
+
 // add channel
 module.exports.addChannel = (data,callback)=>{
+	console.log(data);
+	
 	let add={                                  
 		channel_name : data.channel_name,
-		channel_Id : data.channel_Id,
-		videos_list : data.videos_list
-	}
+		userId : data.userId
+		}
 	channel.create(add,callback);                 
 }
 
