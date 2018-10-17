@@ -7,10 +7,6 @@ const videoSchema = mongoose.Schema({
 		type : String,
 		required : true
 	},
-	channelId:{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Channel'
-	},
 	tags:{
 		type : String,
 		required : true
@@ -35,24 +31,14 @@ module.exports.getVideos = (callback,limit)=>{
 }
 
 
-module.exports.getfeed = (id,callback)=>{
-	video.find( { userId : { $nin: [id] } },callback ).populate('userId','first_name');
-	
-}
-
-// get specific Video
-module.exports.getVideoByUserId = (id,callback)=>{
-	query = {userId:id}
-	video.find(query,callback).populate('userId','first_name');
-}
 
 // add Video
 module.exports.addVideo = (data,callback)=>{
+	console.log(data);
 	let add={                                  
 		path : data.path,
 		tags : data.tags,
-		rating : data.rating,
-		userId : data.userId
+		rating : data.rating
 	}
 	video.create(add,callback);                 
 }
@@ -63,9 +49,7 @@ module.exports.editVideo = (id,data,option,callback)=>{
 	let update = {                                         
 		path : data.path,
 		tags : data.tags,
-		rating : data.rating,
-		userId : data.userId
-
+		rating : data.rating
 	}
 	video.findOneAndUpdate(query, update, option, callback).populate('userId','first_name');     
 }

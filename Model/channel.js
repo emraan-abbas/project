@@ -26,6 +26,14 @@ module.exports.getChannels = (callback,limit)=>{
 	channel.find(callback).limit(limit);
 }
 
+module.exports.addVideoInChannel = (data,callback)=>{
+	query = {userId:data.userId};
+	console.log(query);
+	channel.findOneAndUpdate(query,{$push:{videos_list:data.vid},callback});
+	
+	
+}
+
 // get specific channel
 module.exports.getChanneById = (id,callback)=>{
 	channel.findbyId(id,callback);
@@ -63,4 +71,5 @@ module.exports.removeChannel = (id,callback)=>{
 	let query={_id:id}
 	channel.findOneAndRemove(query, callback);                   
 }
+
 

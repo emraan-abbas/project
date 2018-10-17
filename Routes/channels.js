@@ -58,6 +58,20 @@ router.post('/add',(req,res)=>{
 	})
 })
 
+//add video in channel
+router.post('/video/add',(req,res)=>{
+	let obj = req.body;            
+	console.log(obj);
+	channel.addVideoInChannel(obj,(err,channel)=>{
+		if(err){
+			console.log("Error at add Video In Channel");
+			res.send("Error at add Video In Channel");
+		}
+		console.log("done");
+		res.send(channel);
+	})
+})
+
 
 //Updation
 router.put('/:id',(req,res)=>{
