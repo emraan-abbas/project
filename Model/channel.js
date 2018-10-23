@@ -29,9 +29,7 @@ module.exports.getChannels = (callback,limit)=>{
 module.exports.addVideoInChannel = (data,callback)=>{
 	query = {userId:data.userId};
 	console.log(query);
-	channel.findOneAndUpdate(query,{$push:{videos_list:data.vid},callback});
-	
-	
+	channel.findOneAndUpdate(query,{$addToSet:{videos_list:data.vid}},callback);	
 }
 
 // get specific channel
@@ -42,7 +40,8 @@ module.exports.getChanneById = (id,callback)=>{
 // get channel by user Id
 module.exports.getChanneByUserId = (id,callback)=>{
 	let query={userId:id}  
-	channel.find(query,callback);
+	channel.find(query,callback)
+	.populate('videos_list');
 }
 
 // add channel
